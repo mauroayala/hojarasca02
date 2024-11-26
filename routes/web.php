@@ -3,23 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PlantasController;
 use App\Http\Controllers\ProductosController;
-use App\Models\Plantas;
-use App\Models\Productos;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('empleados', PlantasController::class)->names('plantas');
-Route::resource('cargos', ProductosController::class)->names('productos');
+Route::resource('plantas', PlantasController::class)->names('plantas');
+Route::resource('productos', ProductosController::class)->names('productos');
