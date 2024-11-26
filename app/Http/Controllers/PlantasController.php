@@ -22,7 +22,8 @@ class PlantasController extends Controller
      */
     public function create()
     {
-        //
+        $productos = Productos::all();
+        return view('plantas.create', compact('Productos'));
     }
 
     /**
@@ -40,9 +41,9 @@ class PlantasController extends Controller
             'producto_id' => 'required|exists:productos,id'
         ]);
 
-        Plantas::create($request->all());
+        $planta = Plantas::create($request->all()); //solicita todo de la peticion de la tabla Plantas
 
-        return redirect()->route('plantas.index')->with('success', 'Se creo una planta de forma correcta');
+        return view('plantas.index', compact('planta'));
     }
 
     /**
@@ -50,7 +51,7 @@ class PlantasController extends Controller
      */
     public function show(Plantas $plantas)
     {
-        //
+        return view('plantas.show', compact('empleado'));
     }
 
     /**
@@ -66,16 +67,33 @@ class PlantasController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Plantas $plantas)
+    public function update(Request $request, Plantas $planta)
     {
-        //
+        $request->validate([
+            'nombre' => 'required',
+            'tipo' => 'required',
+            'fecha_ingreso' => 'required|date',
+            'importe' => 'required|integer',
+            'activo' => 'required|boolean',
+            'email' => 'required|email',
+            'productos_id' => 'required|exists:productos,id'
+        ]);
+
+        $planta->update($request->all());
+
+        return redirect()->route('plantas.index')->with('success', 'Se actualizo la planta de forma correcta');
     }
+
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Plantas $plantas)
     {
-        //
+
+        $plantas->delete();
+
+        return redirect()->route('plantas.index')->with('success', 'la planta fue eliminada correctamente');
     }
 }
