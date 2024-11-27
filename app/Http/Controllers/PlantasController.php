@@ -13,6 +13,7 @@ class PlantasController extends Controller
      */
     public function index()
     {
+    
         $plantas = Plantas::all();
         return view('plantas.index', compact('plantas'));
     }
@@ -23,7 +24,7 @@ class PlantasController extends Controller
     public function create()
     {
         $productos = Productos::all();
-        return view('plantas.create', compact('Productos'));
+        return view('plantas.create', compact('productos'));
     }
 
     /**
